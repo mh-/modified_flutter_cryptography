@@ -135,31 +135,7 @@ class DartAesCbc extends AesCbc with DartAesMixin {
       }
     }
 
-    // PKCS7 padding:
-    // The last byte has padding length.
-    final paddingLength = outputAsUint8List.last;
-    if (paddingLength == 0 || paddingLength > 16) {
-      throw StateError(
-        'The decrypted bytes have invalid PKCS7 padding length in the end: $paddingLength',
-      );
-    }
-
-    // Check that all padding bytes are correct PKCS7 padding bytes.
-    for (var i = outputAsUint8List.length - paddingLength;
-        i < outputAsUint8List.length;
-        i++) {
-      if (outputAsUint8List[i] != paddingLength) {
-        throw StateError('The decrypted bytes are missing padding');
-      }
-    }
-    if (paddingLength == 0) {
-      return outputAsUint8List;
-    }
-    return Uint8List.view(
-      outputAsUint32List.buffer,
-      outputAsUint32List.offsetInBytes,
-      outputAsUint32List.lengthInBytes - paddingLength,
-    );
+    return outputAsUint8List;
   }
 
   @override
