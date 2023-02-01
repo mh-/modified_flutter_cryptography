@@ -10,7 +10,10 @@ environment:
   flutter: '>=2.5.0'
 
 dependencies:
-  cryptography: ^2.0.5
+  cryptography:
+    git:
+      url: https://github.com/mh-/modified_flutter_cryptography.git
+      path: cryptography
   flutter:
     sdk: flutter
 
