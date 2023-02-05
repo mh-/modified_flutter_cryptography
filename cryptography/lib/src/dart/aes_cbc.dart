@@ -176,7 +176,7 @@ class DartAesCbc extends AesCbc with DartAesMixin {
     final expandedKey = aesExpandKeyForEncrypting(secretKeyData);
 
     // Construct Uint32List list for the output
-    final paddingLength = 16 - clearText.length % 16;
+    final paddingLength = (16 - clearText.length % 16) % 16;  // no padding after full 16-byte blocks
     final cipherTextBlocks = Uint32List(
       (clearText.length + paddingLength) ~/ 16 * 4,
     );
